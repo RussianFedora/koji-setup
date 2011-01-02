@@ -1,0 +1,7 @@
+Run koji_install.sh for setup kojihub, kojiweb, kojid and kojira on one host.
+Please read a what script tell!
+
+Run add-remote-dist.sh for setup one dist, examle: sh add-remote-dist.sh fedora 14
+where fedora - is a distr part, 14 - it version of distr. This is raw script.
+
+Run koji-uninstall.sh for delete and clear packages and configurations.

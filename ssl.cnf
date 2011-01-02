@@ -1,0 +1,80 @@
+HOME                    = .
+RANDFILE                = .rand
+
+[ca] 
+default_ca              = ca_default
+
+[ca_default] 
+dir                     = .
+certs                   = $dir/certs
+crl_dir                 = $dir/crl
+database                = $dir/index.txt
+new_certs_dir           = $dir/newcerts
+certificate             = $dir/%s_ca_cert.pem
+private_key             = $dir/private/%s_ca_key.pem
+serial                  = $dir/serial
+crl                     = $dir/crl.pem
+x509_extensions         = usr_cert
+name_opt                = ca_default
+cert_opt                = ca_default
+default_days            = 3650
+default_crl_days        = 30
+default_md              = md5
+preserve                = no
+policy                  = policy_match
+unique_subject          = no
+
+[policy_match] 
+countryName             = match
+stateOrProvinceName     = match
+organizationName        = match
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[req] 
+default_bits            = 1024
+default_keyfile         = privkey.pem
+distinguished_name      = req_distinguished_name
+attributes              = req_attributes
+x509_extensions         = v3_ca # The extentions to add to the self signed cert
+string_mask             = MASK:0x2002
+
+[req_distinguished_name] 
+countryName                     = RU
+countryName_default             = RU
+countryName_min                 = 2
+countryName_max                 = 2
+stateOrProvinceName             = Moscow
+stateOrProvinceName_default     = Moscow
+localityName                    = Moscow
+localityName_default            = Moscow
+0.organizationName              = Russian Fedora Team
+0.organizationName_default      = Russian Fedora Team
+organizationalUnitName          = Package Builders
+organizationalUnitName_default	= Package Builders
+commonName                      = koji.russianfedora.ru
+commonName_default		= koji.russianfedora.ru
+commonName_max                  = 64
+emailAddress                    = info@russianfedora.ru
+emailAddress_default		= info@russianfedora.ru
+emailAddress_max                = 64
+
+[req_attributes] 
+challengePassword               = 1234567
+challengePassword_default	= 1234567
+challengePassword_min           = 4
+challengePassword_max           = 20
+unstructuredName                = RFRemix
+unstructuredName_default	= RFRemix
+
+[usr_cert] 
+basicConstraints                = CA:FALSE
+nsComment                       = "OpenSSL Generated Certificate"
+subjectKeyIdentifier            = hash
+authorityKeyIdentifier          = keyid,issuer:always
+
+[v3_ca] 
+subjectKeyIdentifier            = hash
+authorityKeyIdentifier          = keyid:always,issuer:always
+basicConstraints                = CA:true
