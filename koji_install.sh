@@ -22,7 +22,8 @@ cp conf/kojid.conf /etc/kojid/
 cp conf/kojira.conf /etc/kojira/
 cp conf/hub.conf /etc/koji-hub/
 cp conf/kojihub.conf /etc/httpd/conf.d/
-cp conf/kojiweb.conf ssl.conf /etc/httpd/conf.d/
+cp conf/kojiweb.conf /etc/httpd/conf.d/
+cp conf/ssl.conf /etc/httpd/conf.d/
 
 echo "--> Generate certificates"
 echo " --> Please setup koji building host (press Ctrl-D as finish):"
