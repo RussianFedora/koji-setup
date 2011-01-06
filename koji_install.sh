@@ -121,4 +121,11 @@ koji add-user kojira
 koji grant-permission repo kojira
 /sbin/service kojira start
 
+echo " --> Add root to mock group"
+gpasswd -a root mock
 
+echo " --> Copy fixed backend.py"
+mv /usr/lib/python2.7/site-packages/mock/backend.py $backup_dir/backend.py.original
+cp conf/backend.py /usr/lib/python2.7/site-packages/mock
+
+echo "Finish."
