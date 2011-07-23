@@ -1,0 +1,19 @@
+
+module kojihttpdrule 1.0;
+
+require {
+	type httpd_t;
+	type mnt_t;
+	class dir { write create add_name };
+	class file { write getattr read lock create open };
+}
+
+#============= httpd_t ==============
+allow httpd_t mnt_t:dir create;
+#!!!! This avc is allowed in the current policy
+
+allow httpd_t mnt_t:dir { write add_name };
+#!!!! The source type 'httpd_t' can write to a 'file' of the following types:
+# httpd_cache_t, httpd_tmpfs_t, httpd_tmp_t, httpd_squirrelmail_t, httpd_var_lib_t, httpd_var_run_t, squirrelmail_spool_t, httpd_lock_t, httpdcontent, httpd_cobbler_rw_content_t, httpd_munin_rw_content_t, httpd_bugzilla_rw_content_t, httpd_cvs_rw_content_t, httpd_git_rw_content_t, httpd_sys_rw_content_t, httpd_sys_rw_content_t, httpd_nagios_rw_content_t, httpd_nutups_cgi_rw_content_t, httpd_squid_rw_content_t, httpd_smokeping_cgi_rw_content_t, httpd_apcupsd_cgi_rw_content_t, httpd_prewikka_rw_content_t, httpd_awstats_rw_content_t, httpd_w3c_validator_rw_content_t, root_t, httpd_user_rw_content_t
+
+allow httpd_t mnt_t:file { write getattr read lock create open };

@@ -4,7 +4,7 @@ current_pwd=`pwd`
 mkdir originals
 backup_dir=$current_pwd/originals
 echo "--> Installing PreReqs"
-yum install -y httpd mod_ssl postgresql-server mod_python mock setarch rpm-build createrepo koji koji-hub koji-web koji-builder koji-utils
+yum install -y httpd mod_ssl postgresql-server mod_python mock setarch rpm-build createrepo koji koji-hub koji-web koji-builder koji-utils policycoreutils checkpolicy policycoreutils-python
 
 #backup and copy our files
 mkdir -p /etc/pki/koji/{certs,private}
@@ -89,6 +89,12 @@ sed -i "s/MaxRequestsPerChild\  0/MaxRequestsPerChild  100/g" /etc/httpd/conf/ht
 echo " --> configure hub.conf and kojihub.conf"
 echo " --> configure selinux"
 setsebool -P httpd_can_network_connect_db 1
+
+echo " --> apply rules for /mnt/koji in selinux"
+checkmodule -M -m -o kojihttpdrule.mod kojihttpdrule.te
+semodule_package -o kojihttpdrule.pp -m kojihttpdrule.mod
+semodule -i ./kojihttpdrule.pp
+
 echo " --> configure koji filesystem skeleton"
 mkdir -p /mnt/koji/{packages,repos,work,scratch}
 chown -R apache.apache /mnt/koji
