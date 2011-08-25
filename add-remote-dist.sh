@@ -15,18 +15,18 @@ koji add-tag ${DIST}
 koji add-tag --parent ${DIST} --arches "i686 x86_64" ${DIST_BUILD}
 
 if [ "${TYPE}" == "rfr" ];then
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-release -p 5 file:///srv/ftp/fedora/linux/releases/$VERSION/Everything/\$arch/os/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-updates -p 0 file:///srv/ftp/fedora/linux/updates/$VERSION/\$arch/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rpmfusion-free -p 15 file:///srv/ftp/fedora/rpmfusion/free/fedora/releases/$VERSION/Everything/\$arch/os/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rpmfusion-nonfree -p 16 file:///srv/ftp/fedora/rpmfusion/nonfree/fedora/releases/$VERSION/Everything/\$arch/os/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rpmfusion-free-updates -p 10 file:///srv/ftp/fedora/rpmfusion/free/fedora/updates/$VERSION/\$arch/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rpmfusion-nonfree-updates -p 11 file:///srv/ftp/fedora/rpmfusion/nonfree/fedora/updates/$VERSION/\$arch/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-free -p 25 file:///srv/ftp/fedora/russianfedora/russianfedora/free/fedora/releases/$VERSION/Everything/\$arch/os/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-nonfree -p 26 file:///srv/ftp/fedora/russianfedora/russianfedora/nonfree/fedora/releases/$VERSION/Everything/\$arch/os/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-fixes -p 27 file:///srv/ftp/fedora/russianfedora/russianfedora/fixes/fedora/releases/$VERSION/Everything/\$arch/os/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-free-updates -p 20 file:///srv/ftp/fedora/russianfedora/russianfedora/free/fedora/updates/$VERSION/\$arch/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-nonfree-updates -p 21 file:///srv/ftp/fedora/russianfedora/russianfedora/nonfree/fedora/updates/$VERSION/\$arch/
-	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-fixes-updates -p 22 file:///srv/ftp/fedora/russianfedora/russianfedora/fixes/fedora/updates/$VERSION/\$arch/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-release -p 5 http://knight.yandex.net/fedora/linux/releases/$VERSION/Everything/\$arch/os/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-updates -p 0 http://knight.yandex.net/fedora/linux/updates/$VERSION/\$arch/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rpmfusion-free -p 15 http://knight.yandex.net/fedora/rpmfusion/free/fedora/releases/$VERSION/Everything/\$arch/os/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rpmfusion-nonfree -p 16 http://knight.yandex.net/fedora/rpmfusion/nonfree/fedora/releases/$VERSION/Everything/\$arch/os/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rpmfusion-free-updates -p 10 http://knight.yandex.net/fedora/rpmfusion/free/fedora/updates/$VERSION/\$arch/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rpmfusion-nonfree-updates -p 11 http://knight.yandex.net/fedora/rpmfusion/nonfree/fedora/updates/$VERSION/\$arch/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-free -p 25 http://knight.yandex.net/fedora/russianfedora/russianfedora/free/fedora/releases/$VERSION/Everything/\$arch/os/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-nonfree -p 26 http://knight.yandex.net/fedora/russianfedora/russianfedora/nonfree/fedora/releases/$VERSION/Everything/\$arch/os/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-fixes -p 27 http://knight.yandex.net/fedora/russianfedora/russianfedora/fixes/fedora/releases/$VERSION/Everything/\$arch/os/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-free-updates -p 20 http://knight.yandex.net/fedora/russianfedora/russianfedora/free/fedora/updates/$VERSION/\$arch/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-nonfree-updates -p 21 http://knight.yandex.net/fedora/russianfedora/russianfedora/nonfree/fedora/updates/$VERSION/\$arch/
+	koji add-external-repo -t ${DIST_BUILD} ${DIST}-rfremix-fixes-updates -p 22 http://knight.yandex.net/fedora/russianfedora/russianfedora/fixes/fedora/updates/$VERSION/\$arch/
 elif [ "${TYPE}" == "el" ]; then
 	koji add-external-repo -t ${DIST_BUILD} ${DIST}-release -p 5 ftp://ftp.scientificlinux.org/linux/scientific/6/\$arch/os/
 	koji add-external-repo -t ${DIST_BUILD} ${DIST}-updates-fastbugs -p 1 ftp://ftp.scientificlinux.org/linux/scientific/6/\$arch/updates/fastbugs/
