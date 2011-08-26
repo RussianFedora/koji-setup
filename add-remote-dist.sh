@@ -40,22 +40,23 @@ elif [ "${TYPE}" == "el" ]; then
     ${ADD_EXTERNAL_REPO}-epel -p 10 http://mirror.yandex.ru/epel/6/\$arch/
 elif [ "${TYPE}" == "rfr-alpha" ]; then
     # Fedora upstream repos
-    ${ADD_EXTERNAL_REPO}-release -p 20 http://knight.yandex.net/fedora/linux/releases/test/${VERSION}-Alpha/Fedora/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-updates-testing -p 8 http://knight.yandex.net/fedora/linux/updates/testing/${VERSION}/\$arch/
+    #${ADD_EXTERNAL_REPO}-release -p 5 http://knight.yandex.net/fedora/linux/releases/test/${VERSION}-Alpha/Fedora/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-release -p 5 http://knight.yandex.net/fedora/linux/development/${VERSION}/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-updates-testing -p 0 http://knight.yandex.net/fedora/linux/updates/testing/${VERSION}/\$arch/
 
     # this is RPMFusion fucking development
-    ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 9 http://knight.yandex.net/fedora/rpmfusion/free/fedora/development/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 10 http://knight.yandex.net/fedora/rpmfusion/nonfree/fedora/development/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 15 http://knight.yandex.net/fedora/rpmfusion/free/fedora/development/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://knight.yandex.net/fedora/rpmfusion/nonfree/fedora/development/\$arch/os/
 
     # our repos
-    ${ADD_EXTERNAL_REPO}-rfremix-free -p 5 http://knight.yandex.net/fedora/russianfedora/russianfedora/free/fedora/development/${VERSION}/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-rfremix-fixes -p 6 http://knight.yandex.net/fedora/russianfedora/russianfedora/fixes/fedora/development/${VERSION}/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-rfremix-nonfree -p 7 http://knight.yandex.net/fedora/russianfedora/russianfedora/nonfree/fedora/development/${VERSION}/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rfremix-free -p 25 http://knight.yandex.net/fedora/russianfedora/russianfedora/free/fedora/development/${VERSION}/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rfremix-fixes -p 26 http://knight.yandex.net/fedora/russianfedora/russianfedora/fixes/fedora/development/${VERSION}/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rfremix-nonfree -p 27 http://knight.yandex.net/fedora/russianfedora/russianfedora/nonfree/fedora/development/${VERSION}/\$arch/os/
 
     # our repos updates
-    ${ADD_EXTERNAL_REPO}-rfremix-free-updates -p 0 http://knight.yandex.net/fedora/russianfedora/russianfedora/free/fedora/updates/${VERSION}/\$arch/
-    ${ADD_EXTERNAL_REPO}-rfremix-fixes-updates -p 1 http://knight.yandex.net/fedora/russianfedora/russianfedora/fixes/fedora/updates/${VERSION}/\$arch/
-    ${ADD_EXTERNAL_REPO}-rfremix-nonfree-updates -p 2 http://knight.yandex.net/fedora/russianfedora/russianfedora/nonfree/fedora/updates/${VERSION}/\$arch/
+    ${ADD_EXTERNAL_REPO}-rfremix-free-updates -p 20 http://knight.yandex.net/fedora/russianfedora/russianfedora/free/fedora/updates/${VERSION}/\$arch/
+    ${ADD_EXTERNAL_REPO}-rfremix-fixes-updates -p 21 http://knight.yandex.net/fedora/russianfedora/russianfedora/fixes/fedora/updates/${VERSION}/\$arch/
+    ${ADD_EXTERNAL_REPO}-rfremix-nonfree-updates -p 22 http://knight.yandex.net/fedora/russianfedora/russianfedora/nonfree/fedora/updates/${VERSION}/\$arch/
 
 fi
 
