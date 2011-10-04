@@ -1,8 +1,7 @@
 #!/bin/sh
 
-current_pwd=`pwd`
 mkdir originals
-backup_dir=$current_pwd/originals
+backup_dir=$PWD/originals
 echo "--> Installing PreReqs"
 yum install -y httpd mod_ssl postgresql-server mod_python mock setarch rpm-build createrepo koji koji-hub koji-web koji-builder koji-utils policycoreutils checkpolicy policycoreutils-python
 
