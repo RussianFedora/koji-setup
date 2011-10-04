@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 mkdir originals
 backup_dir=$PWD/originals
@@ -55,7 +55,7 @@ echo " --> /etc/pki/koji/$KOJI_ADMIN_NAME.pem as ~/.koji/client.crt"
 echo " --> /etc/pki/koji/koji_ca_cert.crt as ~/.koji/clientca.crt"
 echo " --> /etc/pki/koji/koji_ca_cert.crt as ~/.koji/serverca.crt"
 echo "--< Finish certificates"
-cd $current_pwd
+cd $PWD
 
 echo "--> Setup PosgreSQL"
 echo " --> Install koji"
@@ -120,7 +120,7 @@ echo " --> Try generate kojira certs..."
 cd /etc/pki/koji
 echo " --> WARNING! Set common name as kojira!"
 sh gen_user_certs.sh kojira
-cd $current_pwd
+cd $PWD
 
 koji add-user kojira
 koji grant-permission repo kojira
