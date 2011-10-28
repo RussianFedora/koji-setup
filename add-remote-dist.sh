@@ -63,5 +63,5 @@ fi
 koji add-target ${DIST} ${DIST_BUILD}
 koji add-group ${DIST_BUILD} build
 koji add-group ${DIST_BUILD} srpm-build
-koji add-group-pkg ${DIST_BUILD} build bash bzip2 coreutils cpio glibc diffutils fedora-release findutils gawk gcc gcc-c++ grep gzip info make patch redhat-rpm-config rpm-build sed shadow-utils tar unzip util-linux-ng which
-koji add-group-pkg ${DIST_BUILD} srpm-build bash curl cvs fedora-release gnupg make redhat-rpm-config rpm-build shadow-utils python git subversion bzr
+koji add-group-pkg ${DIST_BUILD} build bash bzip2 coreutils cpio glibc diffutils fedora-release findutils gawk gcc gcc-c++ grep gzip info make patch redhat-rpm-config rpm-build sed shadow-utils tar unzip util-linux-ng which system-release
+koji add-group-pkg ${DIST_BUILD} srpm-build bash curl cvs system-release gnupg make redhat-rpm-config rpm-build shadow-utils python git subversion bzr
