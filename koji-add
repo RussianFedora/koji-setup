@@ -40,9 +40,9 @@ if [ "${TYPE}" == "rfr" ]; then
     ${ADD_EXTERNAL_REPO}-release -p 5 http://fedora.uib.no/fedora/linux/releases/$VERSION/Everything/\$arch/os/
     ${ADD_EXTERNAL_REPO}-updates -p 0 http://fedora.uib.no/fedora/linux/updates/$VERSION/\$arch/
     ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 15 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/releases/22/Everything/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/releases/22/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://mirror.yandex.ru/fedora/rpmfusion/nonfree/fedora/releases/22/Everything/\$arch/os/
     ${ADD_EXTERNAL_REPO}-rpmfusion-free-updates -p 10 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/updates/testing/23/\$arch/
-    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree-updates -p 11 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/updates/testing/23/\$arch/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree-updates -p 11 http://mirror.yandex.ru/fedora/rpmfusion/nonfree/fedora/updates/testing/23/\$arch/
 elif [ "${TYPE}" == "f" ]; then
     ${ADD_EXTERNAL_REPO}-release -p 5 http://mirror.nl.leaseweb.net/fedora/linux/releases/$VERSION/Everything/\$arch/os/
     ${ADD_EXTERNAL_REPO}-updates -p 0 http://mirror.nl.leaseweb.net/fedora/linux/updates/$VERSION/\$arch/
