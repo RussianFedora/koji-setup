@@ -12,6 +12,8 @@ elif [ "$1" == "rfr-rawhide" ]; then
     TYPE=rfr-rawhide
 elif [ "$1" == "rfr-devel" ]; then
     TYPE=rfr-devel
+elif [ "$1" == "rfr-live-devel" ]; then
+    TYPE=rfr-live-devel
 elif [ "$1" == "rfr-beta" ]; then
     TYPE=rfr-beta
 fi
@@ -19,6 +21,9 @@ VERSION=$2
 
 if [ "$TYPE" == "rfr-devel" ]; then
     DIST=dist-rfr${VERSION}-devel
+    DIST_BUILD=${DIST}-build
+elif [ "$TYPE" == "rfr-live-devel" ]; then
+    DIST=dist-rfr${VERSION}-live-devel
     DIST_BUILD=${DIST}-build
 else
     DIST=dist-${TYPE}${VERSION}
@@ -29,15 +34,15 @@ koji add-tag ${DIST}
 koji add-tag --parent ${DIST} --arches "i686 x86_64" ${DIST_BUILD}
 
 ADD_EXTERNAL_REPO="koji add-external-repo -t ${DIST_BUILD} ${DIST}"
+FEDORA_RELEASE="rfremix-release"
 
 if [ "${TYPE}" == "rfr" ]; then
-    ${ADD_EXTERNAL_REPO}-release -p 5 http://ftp.nluug.nl/os/Linux/distr/fedora/linux/releases/$VERSION/Everything/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-updates -p 0 http://ftp.nluug.nl/os/Linux/distr/fedora/linux/updates/$VERSION/\$arch/
-    ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 15 http://ftp.nluug.nl/os/Linux/distr/rpmfusion/free/fedora/releases/$VERSION/Everything/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://ftp.nluug.nl/os/Linux/distr/rpmfusion/nonfree/fedora/releases/$VERSION/Everything/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-rpmfusion-free-updates -p 10 http://ftp.nluug.nl/os/Linux/distr/rpmfusion/free/fedora/updates/$VERSION/\$arch/
-    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree-updates -p 11 http://ftp.nluug.nl/os/Linux/distr/rpmfusion/nonfree/fedora/updates/$VERSION/\$arch/
-
+    ${ADD_EXTERNAL_REPO}-release -p 5 http://fedora.uib.no/fedora/linux/releases/$VERSION/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-updates -p 0 http://fedora.uib.no/fedora/linux/updates/$VERSION/\$arch/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 15 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/releases/22/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/releases/22/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-free-updates -p 10 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/updates/testing/23/\$arch/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree-updates -p 11 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/updates/testing/23/\$arch/
 elif [ "${TYPE}" == "f" ]; then
     ${ADD_EXTERNAL_REPO}-release -p 5 http://mirror.nl.leaseweb.net/fedora/linux/releases/$VERSION/Everything/\$arch/os/
     ${ADD_EXTERNAL_REPO}-updates -p 0 http://mirror.nl.leaseweb.net/fedora/linux/updates/$VERSION/\$arch/
@@ -45,6 +50,7 @@ elif [ "${TYPE}" == "f" ]; then
     ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://ftp.nluug.nl/os/Linux/distr/rpmfusion/nonfree/fedora/releases/$VERSION/Everything/\$arch/os/
     ${ADD_EXTERNAL_REPO}-rpmfusion-free-updates -p 10 http://ftp.nluug.nl/os/Linux/distr/rpmfusion/free/fedora/updates/$VERSION/\$arch/
     ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree-updates -p 11 http://ftp.nluug.nl/os/Linux/distr/rpmfusion/nonfree/fedora/updates/$VERSION/\$arch/
+    FEDORA_RELEASE="fedora-release"
 elif [ "${TYPE}" == "el" ]; then
     ${ADD_EXTERNAL_REPO}-release -p 5 http://ftp.nluug.nl/os/Linux/distr/CentOS/7/os/\$arch/
     ${ADD_EXTERNAL_REPO}-updates -p 1 http://ftp.nluug.nl/os/Linux/distr/CentOS/7/updates/\$arch/
@@ -59,26 +65,30 @@ elif [ "${TYPE}" == "rfr-rawhide" ]; then
     ${ADD_EXTERNAL_REPO}-rfremix-free -p 25 http://pull-mirror.yandex.net/fedora/russianfedora/russianfedora/free/fedora/development/rawhide/\$arch/os/
     ${ADD_EXTERNAL_REPO}-rfremix-fixes -p 26 http://pull-mirror.yandex.net/fedora/russianfedora/russianfedora/fixes/fedora/development/rawhide/\$arch/os/
     ${ADD_EXTERNAL_REPO}-rfremix-nonfree -p 27 http://pull-mirror.yandex.net/fedora/russianfedora/russianfedora/nonfree/fedora/development/rawhide/\$arch/os/
-elif [ "${TYPE}" == "rfr-devel" ]; then
+elif [ "${TYPE}" == "rfr-live-devel" ]; then
     # Fedora upstream repos
-    ${ADD_EXTERNAL_REPO}-release -p 5 http://mirror.nl.leaseweb.net/fedora/linux/development/${VERSION}/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-updates -p 3 http://mirror.nl.leaseweb.net/fedora/linux/updates/${VERSION}/\$arch/
-    ${ADD_EXTERNAL_REPO}-updates-testing -p 0 http://mirror.nl.leaseweb.net/fedora/linux/updates/testing/${VERSION}/\$arch/
+    ${ADD_EXTERNAL_REPO}-release -p 9 http://dl.fedoraproject.org/pub/fedora/linux/development/${VERSION}/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-updates -p 7 http://dl.fedoraproject.org/pub/fedora/linux/updates/${VERSION}/\$arch/
+    ${ADD_EXTERNAL_REPO}-updates-testing -p 5 http://dl.fedoraproject.org/pub/fedora/linux/updates/testing/${VERSION}/\$arch/
 
     # RPMFusion
-    #${ADD_EXTERNAL_REPO}-rpmfusion-free -p 15 http://pull-mirror.yandex.net/fedora/rpmfusion/free/fedora/development/${VERSION}/\$arch/os/
-    #${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://pull-mirror.yandex.net/fedora/rpmfusion/nonfree/fedora/development/${VERSION}/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 15 http://ftp.nluug.nl/os/Linux/distr/rpmfusion/free/fedora/development/rawhide/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://ftp.nluug.nl/os/Linux/distr/rpmfusion/nonfree/fedora/development/rawhide/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 15 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/releases/22/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://mirror.yandex.ru/fedora/rpmfusion/nonfree/fedora/releases/22/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-free-updates -p 10 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/updates/testing/23/\$arch/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree-updates -p 11 http://mirror.yandex.ru/fedora/rpmfusion/nonfree/fedora/updates/testing/23/\$arch/
 
+    # Russian Fedora
+    ${ADD_EXTERNAL_REPO}-rfremix-free -p 25 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/free/fedora/development/${VERSION}/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rfremix-fixes -p 4 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/fixes/fedora/development/${VERSION}/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rfremix-nonfree -p 27 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/nonfree/fedora/development/${VERSION}/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rfremix-branding -p 3 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/branding/fedora/development/${VERSION}/\$arch/os/
 fi
 
 koji add-target ${DIST} ${DIST_BUILD}
 koji add-group ${DIST_BUILD} build
 koji add-group ${DIST_BUILD} livecd-build
 koji add-group ${DIST_BUILD} srpm-build
-koji add-group-pkg ${DIST_BUILD} build bash bzip2 coreutils cpio glibc diffutils fedora-release findutils gawk gcc gcc-c++ grep gzip info make patch redhat-rpm-config rpm-build sed shadow-utils tar unzip util-linux-ng which rpmdevtools python
-koji add-group-pkg ${DIST_BUILD} livecd-build bash bzip2 coreutils cpio glibc diffutils fedora-release findutils gawk gcc gcc-c++ grep gzip info make patch redhat-rpm-config rpm-build sed shadow-utils tar unzip util-linux-ng which rpmdevtools python
-koji add-group-pkg ${DIST_BUILD} srpm-build bash curl cvs gnupg make redhat-rpm-config rpm-build shadow-utils python git subversion bzr fedora-release tar rpmdevtools
+koji add-group-pkg ${DIST_BUILD} build bash bzip2 coreutils cpio glibc diffutils $FEDORA_RELEASE findutils gawk gcc gcc-c++ grep gzip info make patch redhat-rpm-config rpm-build sed shadow-utils tar unzip util-linux-ng which rpmdevtools python
+koji add-group-pkg ${DIST_BUILD} livecd-build bash coreutils fedora-logos $FEDORA_RELEASE livecd-tools policycoreutils python-dbus sed selinux-policy-targeted shadow-utils squashfs-tools sssd-client tar unzip util-linux which yum
+koji add-group-pkg ${DIST_BUILD} srpm-build bash curl cvs gnupg make redhat-rpm-config rpm-build shadow-utils python git subversion bzr $FEDORA_RELEASE tar rpmdevtools
 
-echo "Run: koji add-tag-inheritance dist-rfr23 dist-rfr22"
