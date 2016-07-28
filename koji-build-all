@@ -6,6 +6,6 @@ TAGSUNLOCKED="$(koji list-tags --unlocked | grep -v build | grep -v el6)"
 
 for tag in $TAGS; do
     if [ $(echo "$TAGSUNLOCKED" | grep "$tag") ]; then
-        koji build --nowait $tag git://github.com/$(git remote -v | awk -F "[: ]" '/fetch/ { print $2 }')?#$(git whatchanged | head -n1 | awk '{ print $NF }' | cut -b 1-7)
+        koji build --nowait $tag git://github.com/$(git remote -v | awk -F "[: ]" '/fetch/ { print $2 }')?#$(git log | head -n1 | awk '{ print $NF }' | cut -b 1-7)
     fi
 done
