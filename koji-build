@@ -1,10 +1,11 @@
 #!/bin/sh
 
 TAG="$1"
+SCRATCH="$*"
 
 if [ "x$TAG" == "x" ]; then
     echo "Missing tag"
     exit 1
 fi
 
-koji build --nowait $TAG  git://github.com/$(git remote -v | awk -F "[: ]" '/fetch/ { print $2 }')?#$(git log | head -n1 | awk '{ print $NF }' | cut -b 1-7)
+koji build $SCRATCH --nowait $TAG  git://github.com/$(git remote -v | awk -F "[: ]" '/fetch/ { print $2 }')?#$(git log | head -n1 | awk '{ print $NF }' | cut -b 1-7)
