@@ -35,6 +35,21 @@ ADD_EXTERNAL_REPO="koji add-external-repo -t ${DIST_BUILD} ${DIST}"
 FEDORA_RELEASE="rfremix-release"
 
 if [ "${TYPE}" == "rfr" ]; then
+    ${ADD_EXTERNAL_REPO}-rfremix-branding-updates -p 1 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/branding/fedora/updates/${VERSION}/\$arch/
+    ${ADD_EXTERNAL_REPO}-rfremix-branding -p 2 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/branding/fedora/releases/${VERSION}/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rfremix-fixes-updates -p 5 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/fixes/fedora/updates/${VERSION}/\$arch/
+    ${ADD_EXTERNAL_REPO}-rfremix-fixes -p 6 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/fixes/fedora/releases/${VERSION}/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-updates -p 10 http://fedora.rfremix.ru/fedora/\$arch/updates/$VERSION/\$arch/
+    ${ADD_EXTERNAL_REPO}-release -p 11 http://fedora.rfremix.ru/fedora/\$arch/releases/$VERSION/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-free-updates -p 15 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/updates/$VERSION/\$arch/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 16 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/releases/$VERSION/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree-updates -p 17 http://mirror.yandex.ru/fedora/rpmfusion/nonfree/fedora/updates/$VERSION/\$arch/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 18 http://mirror.yandex.ru/fedora/rpmfusion/nonfree/fedora/releases/$VERSION/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rfremix-free-updates -p 24 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/free/fedora/updates/${VERSION}/\$arch/
+    ${ADD_EXTERNAL_REPO}-rfremix-free -p 28 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/free/fedora/releases/${VERSION}/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rfremix-nonfree-updates -p 32 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/nonfree/fedora/updates/${VERSION}/\$arch/
+    ${ADD_EXTERNAL_REPO}-rfremix-nonfree -p 36 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/nonfree/fedora/releases/${VERSION}/Everything/\$arch/os/
+elif [ "${TYPE}" == "rfr-old" ]; then
     ${ADD_EXTERNAL_REPO}-release -p 5 http://mirror.yandex.ru/fedora/linux/releases/$VERSION/Everything/\$arch/os/
     ${ADD_EXTERNAL_REPO}-updates -p 0 http://mirror.yandex.ru/fedora/linux/updates/$VERSION/\$arch/
     ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 15 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/releases/$VERSION/Everything/\$arch/os/
@@ -75,13 +90,12 @@ elif [ "${TYPE}" == "rfr-rawhide" ]; then
     ${ADD_EXTERNAL_REPO}-rfremix-branding -p 28 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/branding/fedora/development/rawhide/\$arch/os/
 elif [ "${TYPE}" == "rfr-devel" ]; then
     # Fedora upstream repos
-    ${ADD_EXTERNAL_REPO}-release -p 9 http://mirror.yandex.ru/fedora/linux/development/${VERSION}/Everything/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-updates -p 7 http://mirror.yandex.ru/fedora/linux/updates/${VERSION}/\$arch/
-    ${ADD_EXTERNAL_REPO}-updates-testing -p 5 http://mirror.yandex.ru/fedora/linux/updates/testing/${VERSION}/\$arch/
+    ${ADD_EXTERNAL_REPO}-updates-testing -p 5 http://fedora.rfremix.ru/fedora/\$arch/updates/testing/$VERSION/\$arch/
+    ${ADD_EXTERNAL_REPO}-release -p 9 http://fedora.rfremix.ru/fedora/\$arch/development/$VERSION/Everything/\$arch/os/
 
     # RPMFusion
-    ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 15 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/development/$VERSION/Everything/\$arch/os/
-    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://mirror.yandex.ru/fedora/rpmfusion/nonfree/fedora/development/$VERSION/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-free -p 15 http://mirror.yandex.ru/fedora/rpmfusion/free/fedora/development/rawhide/Everything/\$arch/os/
+    ${ADD_EXTERNAL_REPO}-rpmfusion-nonfree -p 16 http://mirror.yandex.ru/fedora/rpmfusion/nonfree/fedora/development/rawhide/Everything/\$arch/os/
 
     # Russian Fedora
     ${ADD_EXTERNAL_REPO}-rfremix-free -p 25 http://mirror.yandex.ru/fedora/russianfedora/russianfedora/free/fedora/development/${VERSION}/\$arch/os/
